@@ -138,7 +138,7 @@ def find_nearest_cell_types(knn, db_new, cell_types):
 
 
 def lm_cell_embed(adata_, top_k=30, model_name="all-MiniLM-L6-v2",gene_list=None, obs_features=None,
-                 return_sentence=True):
+                 return_sentence=True, get_umap=False):
     
     embedding_function = SentenceTransformerEmbeddings(model_name=model_name)
     if gene_list is not None:
@@ -154,9 +154,10 @@ def lm_cell_embed(adata_, top_k=30, model_name="all-MiniLM-L6-v2",gene_list=None
     adata_emb = sc.AnnData(emb_res)
     adata_emb.var= pd.DataFrame(range(emb_res.shape[1]))
     adata_emb.obs = adata.obs
-    sc.tl.pca(adata_emb, svd_solver='arpack')
-    sc.pp.neighbors(adata_emb, n_neighbors=10, n_pcs=40)
-    sc.tl.umap(adata_emb)
+    if get_umap:
+        sc.tl.pca(adata_emb, svd_solver='arpack')
+        sc.pp.neighbors(adata_emb, n_neighbors=10, n_pcs=40)
+        sc.tl.umap(adata_emb)                 
     
     if return_sentence:
         adata_emb.obs['cell_sentence']= sentences
