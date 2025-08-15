@@ -49,8 +49,8 @@ pip install git+https://github.com/portrai-io/CELLama.git
 ```bash
 ### Successful on Ubuntu 22.04.3 LTS (GNU/Linux 5.15.0-105-generic x86_64)
 
-conda create --name cellama2 python=3.9
-conda activate cellama2
+conda create --name CELLama python=3.9
+conda activate CELLama
 python --version
 # Python 3.9.19
 git clone https://github.com/portrai-io/CELLama.git 
