@@ -1,0 +1,28 @@
+[project]
+name = "cellama"
+version = "0.1.0"
+description = "CELLama: cell embedding via language models"
+authors = [{name = "CELLama"}]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "anndata",
+    "pandas",
+    "numpy",
+    "pydantic",
+    "typer",
+    "sentence-transformers",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+train = ["torch", "transformers"]
+viz = ["umap-learn"]
+all = ["cellama[train]", "cellama[viz]"]
+
+[project.scripts]
+cellama = "cellama.cli:main"
+
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
